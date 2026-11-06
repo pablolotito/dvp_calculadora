@@ -1,0 +1,701 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>DVP — Graefe's & APOLO 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap">
+
+<style>
+/* ── TOKENS
+   Layout: fullscreen slide deck, one slide at a time
+   Color:  deep retinal blue-black + vitreous teal accent
+   Type:   DM Serif Display (headings) + DM Sans (body/data)
+─────────────────────────────────────────── */
+:root {
+  --bg:     #0a1628;
+  --bg2:    #0f2040;
+  --bg3:    #152850;
+  --fg:     #e8eef8;
+  --fg2:    #9fb4d4;
+  --accent: #2ee8c8;
+  --acc2:   #1ab8a0;
+  --acc3:   #f06e4a;
+  --warn:   #f8c24b;
+  --sep:    rgba(46,232,200,.18);
+  --r:      10px;
+  --sans:   'DM Sans', system-ui, sans-serif;
+  --serif:  'DM Serif Display', Georgia, serif;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: var(--sans); background: var(--bg); color: var(--fg); overflow: hidden; }
+
+/* ── Deck ─── */
+#deck { display: grid; grid-template-rows: 1fr auto; height: 100%; }
+
+.slide {
+  display: none; flex-direction: column; justify-content: center;
+  padding: max(28px, env(safe-area-inset-top,0px)) max(48px, env(safe-area-inset-right,0px)) 20px max(48px, env(safe-area-inset-left,0px));
+  position: relative; overflow: hidden;
+}
+.slide.active { display: flex; }
+.slide::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent 70%);
+}
+
+/* ── Nav ─── */
+#nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px max(24px, env(safe-area-inset-right,0px)) max(14px, env(safe-area-inset-bottom,0px)) max(24px, env(safe-area-inset-left,0px));
+  border-top: 1px solid var(--sep); background: var(--bg); flex-shrink: 0;
+}
+.nav-btn {
+  background: var(--bg3); border: 1px solid var(--sep); color: var(--fg);
+  font-family: var(--sans); font-size: .85rem; font-weight: 500;
+  padding: 7px 18px; border-radius: 6px; cursor: pointer;
+  transition: background .15s, border-color .15s; letter-spacing: .02em;
+}
+.nav-btn:hover { background: var(--bg2); border-color: var(--accent); color: var(--accent); }
+.nav-btn:disabled { opacity: .3; cursor: default; }
+.nav-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#slide-count { font-size: .78rem; color: var(--fg2); font-variant-numeric: tabular-nums; letter-spacing: .06em; }
+#dots { display: flex; gap: 6px; }
+.dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--bg3); border: 1px solid var(--sep);
+  transition: background .2s, transform .2s; cursor: pointer;
+}
+.dot.active { background: var(--accent); transform: scale(1.3); }
+
+/* ── Type helpers ─── */
+.eyebrow { font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.slide-title { font-family: var(--serif); font-size: clamp(1.7rem, 3.5vw, 2.9rem); line-height: 1.1; text-wrap: balance; color: var(--fg); margin-bottom: 16px; }
+.slide-title em { font-style: italic; color: var(--accent); }
+.lead { font-size: clamp(.9rem, 1.5vw, 1.05rem); color: var(--fg2); line-height: 1.65; max-width: 68ch; }
+.hl  { color: var(--accent); font-weight: 600; }
+.hl3 { color: var(--acc3);   font-weight: 600; }
+
+/* ── Cover ─── */
+#s1 { justify-content: flex-end; padding-bottom: 56px; }
+.cover-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 70% at 80% 30%, rgba(46,232,200,.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,184,160,.05) 0%, transparent 60%);
+}
+.cover-eye {
+  position: absolute; top: 50%; right: 8%; transform: translateY(-50%);
+  width: min(300px, 36vw); opacity: .17;
+}
+.cover-content { position: relative; z-index: 1; }
+.journal-tag {
+  display: inline-block; font-size: .67rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--acc2); border: 1px solid var(--acc2);
+  border-radius: 4px; padding: 3px 8px; margin-bottom: 20px;
+}
+.cover-title { font-family: var(--serif); font-size: clamp(2rem, 4.5vw, 3.6rem); line-height: 1.08; text-wrap: balance; margin-bottom: 14px; max-width: 18ch; }
+.cover-title em { color: var(--accent); font-style: italic; }
+.cover-sub { font-size: clamp(.88rem, 1.3vw, .98rem); color: var(--fg2); line-height: 1.5; max-width: 55ch; margin-bottom: 24px; }
+.authors { font-size: .77rem; color: rgba(159,180,212,.7); letter-spacing: .01em; }
+.authors strong { color: var(--fg2); font-weight: 500; }
+
+/* ── Tiles ─── */
+.tiles { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 20px; }
+.tile { background: var(--bg2); border: 1px solid var(--sep); border-radius: var(--r); padding: 16px 20px; flex: 1 1 130px; }
+.tile .num { font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.5rem); line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.tile .unit { font-size: .68rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--fg2); margin-top: 3px; }
+.tile .label { font-size: .75rem; color: rgba(159,180,212,.8); margin-top: 5px; line-height: 1.4; }
+
+/* ── Two-col ─── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; margin-top: 16px; }
+@media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+.col-card { background: var(--bg2); border: 1px solid var(--sep); border-radius: var(--r); padding: 18px; }
+.col-card h3 { font-family: var(--serif); font-size: 1.08rem; margin-bottom: 9px; color: var(--fg); }
+.col-card p, .col-card li { font-size: .85rem; color: var(--fg2); line-height: 1.6; }
+.col-card ul { padding-left: 1.1em; }
+.col-card li + li { margin-top: 5px; }
+
+/* ── Heatmap ─── */
+#heatmap-wrap { margin-top: 20px; overflow-x: auto; }
+#heatmap-wrap table { border-collapse: separate; border-spacing: 4px; font-size: .8rem; font-variant-numeric: tabular-nums; margin: 0 auto; }
+#heatmap-wrap th { font-size: .68rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--fg2); padding: 4px 8px; text-align: center; }
+#heatmap-wrap th.row-head { text-align: right; }
+#heatmap-wrap td { width: 74px; height: 52px; border-radius: 6px; text-align: center; vertical-align: middle; font-size: .9rem; font-weight: 600; transition: transform .15s; cursor: default; }
+#heatmap-wrap td:hover { transform: scale(1.06); z-index: 2; position: relative; }
+#heatmap-wrap td small { display: block; font-size: .62rem; font-weight: 400; opacity: .7; margin-top: 2px; }
+
+/* ── Bar chart ─── */
+.bar-chart { margin-top: 18px; }
+.bar-group { margin-bottom: 12px; }
+.bar-label { font-size: .78rem; color: var(--fg2); margin-bottom: 4px; display: flex; justify-content: space-between; }
+.bar-track { height: 26px; background: var(--bg3); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: .75rem; font-weight: 700; color: var(--bg); transition: width 1.2s cubic-bezier(.22,.61,.36,1); font-variant-numeric: tabular-nums; }
+
+/* ── Stacked bar chart (sex/age) ─── */
+.sex-chart { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 600px) { .sex-chart { grid-template-columns: 1fr; } }
+.sex-panel h4 { font-size: .72rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--fg2); margin-bottom: 8px; }
+.age-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.age-row .age-lbl { width: 46px; font-size: .7rem; color: var(--fg2); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.age-row .bar-wrap { flex: 1; display: flex; gap: 2px; }
+.seg { height: 20px; border-radius: 3px; flex-shrink: 0; }
+.stage-legend { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+.stage-legend-item { display: flex; align-items: center; gap: 4px; font-size: .7rem; color: var(--fg2); }
+.swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+/* ── Callout ─── */
+.callout { border-left: 3px solid var(--accent); background: rgba(46,232,200,.06); border-radius: 0 var(--r) var(--r) 0; padding: 12px 16px; margin-top: 14px; font-size: .84rem; color: var(--fg2); line-height: 1.6; }
+.callout.warn { border-left-color: var(--warn); background: rgba(248,194,75,.06); }
+
+/* ── Bullets ─── */
+.bullet-list { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+.bullet-item { display: flex; align-items: flex-start; gap: 12px; background: var(--bg2); border: 1px solid var(--sep); border-radius: var(--r); padding: 12px 16px; }
+.bullet-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+.bullet-text { font-size: .87rem; color: var(--fg2); line-height: 1.55; }
+.bullet-text strong { color: var(--fg); font-weight: 600; }
+
+/* ── Calculator (S7) ─── */
+#calc-wrap {
+  display: grid; grid-template-columns: 280px 1fr; gap: 24px; margin-top: 16px; align-items: start;
+}
+@media (max-width: 700px) { #calc-wrap { grid-template-columns: 1fr; } }
+.calc-panel { background: var(--bg2); border: 1px solid var(--sep); border-radius: var(--r); padding: 20px; }
+.calc-panel h3 { font-family: var(--serif); font-size: 1rem; color: var(--fg); margin-bottom: 14px; }
+.form-row { margin-bottom: 12px; }
+.form-row label { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--fg2); margin-bottom: 5px; }
+.form-row select, .form-row input[type=range] { width: 100%; }
+.form-row select {
+  background: var(--bg3); border: 1px solid var(--sep); color: var(--fg);
+  font-family: var(--sans); font-size: .88rem; padding: 7px 10px; border-radius: 6px;
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+}
+.form-row select:focus { outline: 2px solid var(--accent); }
+input[type=range] { accent-color: var(--accent); cursor: pointer; }
+.range-val { font-size: .82rem; color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; margin-top: 4px; }
+
+.result-panel { background: var(--bg2); border: 1px solid var(--sep); border-radius: var(--r); padding: 20px; }
+.result-panel h3 { font-family: var(--serif); font-size: 1rem; color: var(--fg); margin-bottom: 14px; }
+.result-bars { display: flex; flex-direction: column; gap: 10px; }
+.res-row { }
+.res-label { display: flex; justify-content: space-between; font-size: .78rem; color: var(--fg2); margin-bottom: 4px; }
+.res-label .grade-name { font-weight: 600; color: var(--fg); }
+.res-label .pct-val { font-weight: 700; font-variant-numeric: tabular-nums; }
+.res-track { height: 22px; background: var(--bg3); border-radius: 4px; overflow: hidden; }
+.res-fill { height: 100%; border-radius: 4px; transition: width .6s cubic-bezier(.22,.61,.36,1); }
+.res-note { font-size: .72rem; color: rgba(159,180,212,.55); margin-top: 10px; line-height: 1.5; }
+</style>
+
+<div id="deck">
+<div id="slides-area" style="flex:1;overflow:hidden;">
+
+  <!-- S1: Portada -->
+  <div class="slide active" id="s1">
+    <div class="cover-bg"></div>
+    <svg class="cover-eye" viewBox="0 0 200 200" fill="none">
+      <ellipse cx="100" cy="100" rx="98" ry="98" stroke="currentColor" stroke-width=".8" stroke-dasharray="3 4"/>
+      <circle cx="100" cy="100" r="60" stroke="currentColor" stroke-width=".8"/>
+      <circle cx="100" cy="100" r="30" fill="currentColor" opacity=".3"/>
+      <circle cx="100" cy="100" r="10" fill="currentColor" opacity=".6"/>
+      <line x1="100" y1="2" x2="100" y2="40" stroke="currentColor" stroke-width=".6"/>
+      <line x1="100" y1="160" x2="100" y2="198" stroke="currentColor" stroke-width=".6"/>
+      <line x1="2" y1="100" x2="40" y2="100" stroke="currentColor" stroke-width=".6"/>
+      <line x1="160" y1="100" x2="198" y2="100" stroke="currentColor" stroke-width=".6"/>
+    </svg>
+    <div class="cover-content">
+      <div class="journal-tag">Graefe's Archive · 2026 &nbsp;·&nbsp; APOLO S.L.R. 2</div>
+      <div class="cover-title">Progresión del DVP:<br><em>edad, sexo</em><br>y largo axial</div>
+      <div class="cover-sub">
+        Modelo poblacional de transición de grados DVP mediante transporte óptimo regularizado por entropía —
+        4 046 ojos, OCT widefield, Clínica de Ojos Tandil
+      </div>
+      <div class="authors">
+        <strong>H. Scarfone · E. C. Rodríguez · T. Castro Feijoo</strong> · L. Corrales · P. A. Lotito · M. del C. Romero<br>
+        Clínica de Ojos Tandil · UNICEN · CONICET
+      </div>
+    </div>
+  </div>
+
+  <!-- S2: Población -->
+  <div class="slide" id="s2">
+    <div class="eyebrow">Cohorte</div>
+    <div class="slide-title">4 046 ojos — <em>tres factores</em> modificadores</div>
+    <div class="tiles">
+      <div class="tile">
+        <div class="num">4 046</div>
+        <div class="unit">ojos</div>
+        <div class="label">Clínica de Ojos Tandil, 2022–2024</div>
+      </div>
+      <div class="tile">
+        <div class="num">60%</div>
+        <div class="unit">mujeres</div>
+        <div class="label">2 435 ojos femeninos</div>
+      </div>
+      <div class="tile">
+        <div class="num">76%</div>
+        <div class="unit">LA normal</div>
+        <div class="label">Largo axial 22–25 mm</div>
+      </div>
+      <div class="tile">
+        <div class="num">42%</div>
+        <div class="unit">grado 4</div>
+        <div class="label">DVP completo en la cohorte total</div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:16px;">
+      <strong>Clasificación Johnson (OCT widefield 16 mm):</strong>
+      Grado 0 = vítreo adherido · 1 = separación perifoveal · 2 = separación paramacular ·
+      3 = separación peripapillar · 4 = DVP completo
+    </div>
+  </div>
+
+  <!-- S3: Distribución por edad y sexo -->
+  <div class="slide" id="s3">
+    <div class="eyebrow">Resultados — Edad y sexo</div>
+    <div class="slide-title">Grado 4 se acelera en mujeres desde los <em>60 años</em></div>
+    <div class="sex-chart" id="sex-chart"></div>
+    <div class="stage-legend" id="stage-legend"></div>
+  </div>
+
+  <!-- S4: Largo axial -->
+  <div class="slide" id="s4">
+    <div class="eyebrow">Resultados — Largo axial</div>
+    <div class="slide-title">Ojos <em>largos (&gt; 25 mm)</em> progresan antes</div>
+    <div class="two-col" style="margin-top:14px;">
+      <div class="col-card">
+        <h3>♀ Mujeres — distribución DVP por largo axial</h3>
+        <div class="bar-chart">
+          <div class="bar-group">
+            <div class="bar-label"><span>LA &lt; 22 mm</span><span style="color:var(--fg2)">22% G4</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--bg3);color:var(--fg2);" data-w="22">22%</div></div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-label"><span>LA 22–25 mm</span><span class="hl">47% G4</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--accent);" data-w="47">47%</div></div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-label"><span>LA &gt; 25 mm</span><span class="hl3">56% G4</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--acc3);" data-w="56">56%</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-card">
+        <h3>♂ Hombres — distribución DVP por largo axial</h3>
+        <div class="bar-chart">
+          <div class="bar-group">
+            <div class="bar-label"><span>LA &lt; 22 mm</span><span style="color:var(--fg2)">10% G4</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--bg3);color:var(--fg2);" data-w="10">10%</div></div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-label"><span>LA 22–25 mm</span><span class="hl">32% G4</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--accent);" data-w="32">32%</div></div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-label"><span>LA &gt; 25 mm</span><span class="hl3">47% G4</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--acc3);" data-w="47">47%</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="callout">
+      χ² significativo en mujeres y hombres (p &lt; 0.0001). Ojos largos (&gt; 25 mm): mayor proporción de DVP avanzado en todos los grupos etarios.
+    </div>
+  </div>
+
+  <!-- S5: Metodología Sinkhorn -->
+  <div class="slide" id="s5">
+    <div class="eyebrow">Metodología</div>
+    <div class="slide-title">Transporte óptimo regularizado: <em>sin datos longitudinales</em></div>
+    <div class="lead" style="max-width:62ch; margin-bottom:16px;">
+      Los datos son de corte transversal. Para estimar probabilidades de transición entre grados,
+      usamos el <span class="hl">algoritmo de Sinkhorn</span> con restricción de monotonicidad
+      (el DVP no retrocede).
+    </div>
+    <div class="two-col">
+      <div class="col-card">
+        <h3>El problema</h3>
+        <ul>
+          <li>No hay seguimiento longitudinal pareado</li>
+          <li>Los grados de DVP son ordinales y monotónicos</li>
+          <li>Las distribuciones por franja etaria son el único dato disponible</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <h3>La solución</h3>
+        <ul>
+          <li>Pares de franjas consecutivas: (50–54, 55–59), (55–59, 60–64)…</li>
+          <li>Sinkhorn halla la matriz P que transforma la distribución A → B</li>
+          <li>Restricción: P<sub>ij</sub> = 0 si j &lt; i (no regresión)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout warn" style="font-size:.82rem;">
+      <strong>Validación:</strong> test de dominancia estocástica + pseudocohorte (distancias L1 &lt; 0.01) + sensibilidad a ε (meseta estable en [0.01, 0.5]).
+    </div>
+  </div>
+
+  <!-- S6: Heatmap transición -->
+  <div class="slide" id="s6">
+    <div class="eyebrow">Resultados — Transiciones observadas (Graefe's)</div>
+    <div class="slide-title">Matriz de <em>transición</em> post-seguimiento ≥ 12 meses</div>
+    <div id="heatmap-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="row-head">Grado inicial ↓</th>
+            <th>Grado 0</th><th>Grado 1</th><th>Grado 2</th><th>Grado 3</th><th>Grado 4</th>
+          </tr>
+        </thead>
+        <tbody id="heatmap-body"></tbody>
+      </table>
+    </div>
+    <div class="callout" style="font-size:.8rem;">
+      Grados 2 y 3 son estados transitorios breves — la mayoría de los ojos permanece estable o avanza directamente a grado 4.
+    </div>
+  </div>
+
+  <!-- S7: Calculador interactivo -->
+  <div class="slide" id="s7">
+    <div class="eyebrow">Calculador DVP — APOLO S.L.R. 2</div>
+    <div class="slide-title">Distribución esperada según <em>perfil del paciente</em></div>
+    <div id="calc-wrap">
+      <div class="calc-panel">
+        <h3>Parámetros</h3>
+        <div class="form-row">
+          <label for="calc-sex">Sexo</label>
+          <select id="calc-sex">
+            <option value="F">Mujer</option>
+            <option value="M">Hombre</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="calc-age">Edad: <span id="age-val" class="range-val">65 años</span></label>
+          <input type="range" id="calc-age" min="40" max="89" value="65" step="1">
+        </div>
+        <div class="form-row">
+          <label for="calc-al">Largo axial</label>
+          <select id="calc-al">
+            <option value="short">Corto (&lt; 22 mm)</option>
+            <option value="normal" selected>Normal (22–25 mm)</option>
+            <option value="long">Largo (&gt; 25 mm)</option>
+          </select>
+        </div>
+      </div>
+      <div class="result-panel">
+        <h3>Distribución DVP esperada</h3>
+        <div class="result-bars" id="result-bars"></div>
+        <div class="res-note">
+          Basado en 4 046 ojos. Distribución interpolada a partir de datos poblacionales reales por franja etaria, sexo y largo axial.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S8: Implicaciones clínicas -->
+  <div class="slide" id="s8">
+    <div class="eyebrow">Implicaciones clínicas</div>
+    <div class="slide-title">Tres recomendaciones <em>accionables</em></div>
+    <div class="bullet-list">
+      <div class="bullet-item">
+        <div class="bullet-icon">👁</div>
+        <div class="bullet-text">
+          <strong>Estadificación con OCT widefield 16 mm</strong><br>
+          Establece baseline real, identifica etapas transitorias (2–3) y guía counseling personalizado según edad, sexo y biometría.
+        </div>
+      </div>
+      <div class="bullet-item">
+        <div class="bullet-icon">🎯</div>
+        <div class="bullet-text">
+          <strong>Vigilancia dirigida por riesgo</strong><br>
+          Priorizar <span class="hl3">mujeres 60–79 años</span> y ojos con largo axial &gt; 25 mm.
+          En grado 2–3: seguimiento estrecho en el primer año — son estados transitorios hacia grado 4.
+        </div>
+      </div>
+      <div class="bullet-item">
+        <div class="bullet-icon">📊</div>
+        <div class="bullet-text">
+          <strong>Counseling basado en el modelo poblacional</strong><br>
+          El calculador permite estimar la distribución DVP esperada para cada paciente e integrarla
+          en la planificación de LIOs multifocales y cirugía vitreorretinal.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S9: Conclusión -->
+  <div class="slide" id="s9">
+    <div class="eyebrow">Conclusión</div>
+    <div class="slide-title">DVP como proceso <em>biológico cuantificable</em></div>
+    <div class="lead" style="margin-bottom:16px;">
+      La progresión del DVP sigue factores biológicos —
+      <span class="hl">edad</span>, <span class="hl">sexo</span> y <span class="hl">largo axial</span> —
+      con una dinámica que el transporte óptimo regularizado permite modelar sin datos longitudinales.
+    </div>
+    <div class="two-col">
+      <div class="col-card">
+        <h3>Lo que aporta este trabajo</h3>
+        <ul>
+          <li>Baseline poblacional de DVP por edad, sexo y LA — OCT widefield</li>
+          <li>Primer modelo de transición basado en Sinkhorn para DVP</li>
+          <li>Calculador clínico integrable en la consulta</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <h3>Próximos pasos</h3>
+        <ul>
+          <li>Validación externa en otras cohortes</li>
+          <li>Integrar datos longitudinales cuando estén disponibles</li>
+          <li>Umbral binario (grado 4 vs. ≤ 3) para simplificar el reporte</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout" style="font-size:.82rem; color:var(--fg2);">
+      <em>Graefe's Archive for Clinical and Experimental Ophthalmology</em> — doi:10.1007/s00417-026-07125-3
+      &nbsp;·&nbsp; APOLO S.L.R. 2 DVP Calculator — Clínica de Ojos Tandil / UNICEN / CONICET
+    </div>
+  </div>
+
+</div><!-- /slides-area -->
+
+<!-- NAV -->
+<div id="nav">
+  <button class="nav-btn" id="btn-prev" disabled>← Anterior</button>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+    <div id="dots"></div>
+    <div id="slide-count">1 / 9</div>
+  </div>
+  <button class="nav-btn" id="btn-next">Siguiente →</button>
+</div>
+</div><!-- /deck -->
+
+<script>
+/* ── Deck controller ─── */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const total  = slides.length;
+let cur = 0;
+const dotsWrap = document.getElementById('dots');
+const countEl  = document.getElementById('slide-count');
+const btnPrev  = document.getElementById('btn-prev');
+const btnNext  = document.getElementById('btn-next');
+
+slides.forEach((_, i) => {
+  const d = document.createElement('button');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.setAttribute('aria-label', `Slide ${i+1}`);
+  d.addEventListener('click', () => goTo(i));
+  dotsWrap.appendChild(d);
+});
+
+function goTo(n) {
+  slides[cur].classList.remove('active');
+  dotsWrap.children[cur].classList.remove('active');
+  cur = Math.max(0, Math.min(n, total - 1));
+  slides[cur].classList.add('active');
+  dotsWrap.children[cur].classList.add('active');
+  countEl.textContent = `${cur+1} / ${total}`;
+  btnPrev.disabled = cur === 0;
+  btnNext.disabled = cur === total - 1;
+  animateSlide(cur);
+}
+btnPrev.addEventListener('click', () => goTo(cur - 1));
+btnNext.addEventListener('click', () => goTo(cur + 1));
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(cur + 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(cur - 1);
+});
+
+/* ── Bars ─── */
+function animateBars(sl) {
+  sl.querySelectorAll('.bar-fill[data-w]').forEach(el => {
+    const w = parseFloat(el.dataset.w);
+    el.style.width = '0%';
+    requestAnimationFrame(() => setTimeout(() => { el.style.width = w + '%'; }, 60));
+  });
+}
+
+/* ── Sex chart S3 ─── */
+const STAGE_COLORS = ['#1e3a5f','#2a6090','#2497c8','#1ab8a0','#2ee8c8'];
+const STAGE_LABELS = ['Grado 0','Grado 1','Grado 2','Grado 3','Grado 4'];
+
+// Data from paper + APOLO doc (by age group 40-49..≥80, % per stage)
+const femData = [
+  [96, 4, 0, 0, 0],
+  [72, 18, 8, 2, 0],
+  [22, 10, 7, 1, 60],
+  [10, 7, 5, 15.7, 62.3],
+  [8, 6, 5, 9.9, 71.1]
+];
+const malData = [
+  [89.7, 10.3, 0, 0, 0],
+  [84, 10, 4, 2, 0],
+  [32, 14, 8, 4.9, 41.1],
+  [27, 14, 8, 9.9, 41.1],
+  [22, 12, 7, 5.2, 53.8]
+];
+const AGE_LABELS = ['40–49','50–59','60–69','70–79','≥ 80'];
+
+function buildSexChart() {
+  const chart = document.getElementById('sex-chart');
+  chart.innerHTML = '';
+  [['Mujeres', femData], ['Hombres', malData]].forEach(([sex, data]) => {
+    const panel = document.createElement('div');
+    panel.className = 'sex-panel';
+    panel.innerHTML = `<h4>${sex === 'Mujeres' ? '♀' : '♂'} ${sex}</h4>`;
+    AGE_LABELS.forEach((age, ai) => {
+      const row = document.createElement('div');
+      row.className = 'age-row';
+      row.innerHTML = `<span class="age-lbl">${age}</span><div class="bar-wrap"></div>`;
+      const bw = row.querySelector('.bar-wrap');
+      data[ai].forEach((pct, gi) => {
+        if (pct <= 0) return;
+        const seg = document.createElement('div');
+        seg.className = 'seg';
+        seg.style.cssText = `width:${pct}%;background:${STAGE_COLORS[gi]};`;
+        seg.title = `${STAGE_LABELS[gi]}: ${pct}%`;
+        bw.appendChild(seg);
+      });
+      panel.appendChild(row);
+    });
+    chart.appendChild(panel);
+  });
+  const leg = document.getElementById('stage-legend');
+  leg.innerHTML = '';
+  STAGE_LABELS.forEach((l, i) => {
+    const item = document.createElement('div');
+    item.className = 'stage-legend-item';
+    item.innerHTML = `<div class="swatch" style="background:${STAGE_COLORS[i]}"></div>${l}`;
+    leg.appendChild(item);
+  });
+}
+
+/* ── Heatmap S6 ─── */
+function buildHeatmap() {
+  const data = [
+    [82.7, 10.3, 0,   0,    6.9],
+    [2.6,  77.6, 0,   0,   19.7],
+    [0,     4.4, 47.8, 0,  47.8],
+    [0,     0,   0,  75.0, 25.0],
+    [0,     0,   0,   0,  100.0]
+  ];
+  const tbody = document.getElementById('heatmap-body');
+  tbody.innerHTML = '';
+  data.forEach((row, ri) => {
+    const tr = document.createElement('tr');
+    const th = document.createElement('th');
+    th.className = 'row-head';
+    th.textContent = STAGE_LABELS[ri];
+    tr.appendChild(th);
+    row.forEach((val, ci) => {
+      const td = document.createElement('td');
+      let bg, fg;
+      if (val === 0) { bg = 'rgba(15,32,64,.4)'; fg = 'rgba(159,180,212,.2)'; }
+      else if (ri === ci) { bg = 'rgba(42,96,144,.6)'; fg = '#9fb4d4'; }
+      else if (val >= 50) { bg = 'rgba(46,232,200,.35)'; fg = '#fff'; }
+      else if (val >= 20) { bg = 'rgba(46,232,200,.18)'; fg = '#c0edd8'; }
+      else { bg = 'rgba(46,232,200,.08)'; fg = '#9fb4d4'; }
+      if (ci === 4 && ri !== 4 && val > 0) {
+        if (val >= 40) { bg = 'rgba(240,110,74,.35)'; fg = '#fff'; }
+        else if (val >= 15) { bg = 'rgba(240,110,74,.2)'; fg = '#fca'; }
+      }
+      td.style.cssText = `background:${bg};color:${fg};`;
+      td.innerHTML = `${val.toFixed(1)}%<small>${STAGE_LABELS[ci]}</small>`;
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+/* ── Calculator S7 ─── */
+// Population data: [age_group_idx][al_idx][stage_idx]
+// age groups: 0=<50, 1=50-59, 2=60-69, 3=70-79, 4=>=80
+// al: 0=short(<22), 1=normal(22-25), 2=long(>25)
+// From APOLO doc (women/men × short/normal/long):
+const calcData = {
+  F: [
+    // <50
+    [[50.5,18,3,6.5,22],[20,19,6,5,50],[31.6,6.6,2.3,3.1,56.4]],
+    // 50-59 (interpolated)
+    [[45,20,4,5,26],[22,20,6,5,47],[28,8,2.5,3,58.5]],
+    // 60-69
+    [[38,19,4,5,34],[22.2,19.3,6,5.2,47.4],[28,7,2.5,3,59.5]],
+    // 70-79
+    [[30,18,4,6,42],[19,18,6,5.5,51.5],[28,6,2,3,61]],
+    // >=80
+    [[25,17,4,6,48],[16,17,6,6,55],[26,5,2,3,64]]
+  ],
+  M: [
+    // <50
+    [[75.5,4.1,4.1,6.1,10.2],[38,20,6,5,31],[39.3,10,2.1,1.3,47.3]],
+    // 50-59
+    [[60,10,5,6,19],[38.5,19,6,5,31.5],[39,10,2,1.5,47.5]],
+    // 60-69
+    [[50,12,5,6,27],[39,18.6,6,4.7,31.8],[38,10,2,1.5,48.5]],
+    // 70-79
+    [[40,10,5,7,38],[37,18,6,4.5,34.5],[37,10,2,1.5,49.5]],
+    // >=80
+    [[35,10,5,8,42],[33,17,6,5,39],[35,9,2,2,52]]
+  ]
+};
+
+function ageIdx(age) {
+  if (age < 50) return 0;
+  if (age < 60) return 1;
+  if (age < 70) return 2;
+  if (age < 80) return 3;
+  return 4;
+}
+function alIdx(al) { return al === 'short' ? 0 : al === 'normal' ? 1 : 2; }
+
+const RESULT_COLORS = ['#1e3a5f','#2a6090','#2497c8','#1ab8a0','#2ee8c8'];
+
+function renderCalc() {
+  const sex = document.getElementById('calc-sex').value;
+  const age = parseInt(document.getElementById('calc-age').value);
+  const al  = document.getElementById('calc-al').value;
+  document.getElementById('age-val').textContent = `${age} años`;
+
+  const dist = calcData[sex][ageIdx(age)][alIdx(al)];
+  // normalize to 100
+  const sum = dist.reduce((a, b) => a + b, 0);
+  const norm = dist.map(v => (v / sum * 100));
+
+  const wrap = document.getElementById('result-bars');
+  wrap.innerHTML = '';
+  norm.forEach((pct, i) => {
+    const row = document.createElement('div');
+    row.className = 'res-row';
+    row.innerHTML = `
+      <div class="res-label">
+        <span class="grade-name">${STAGE_LABELS[i]}</span>
+        <span class="pct-val" style="color:${RESULT_COLORS[i]}">${pct.toFixed(1)}%</span>
+      </div>
+      <div class="res-track">
+        <div class="res-fill" style="width:0%;background:${RESULT_COLORS[i]};" data-w="${pct}"></div>
+      </div>`;
+    wrap.appendChild(row);
+  });
+  // animate
+  requestAnimationFrame(() => setTimeout(() => {
+    wrap.querySelectorAll('.res-fill[data-w]').forEach(el => {
+      el.style.width = parseFloat(el.dataset.w) + '%';
+    });
+  }, 60));
+}
+
+document.getElementById('calc-sex').addEventListener('change', renderCalc);
+document.getElementById('calc-age').addEventListener('input',  renderCalc);
+document.getElementById('calc-al').addEventListener('change',  renderCalc);
+
+/* ── Per-slide init ─── */
+function animateSlide(n) {
+  animateBars(slides[n]);
+  if (n === 2) buildSexChart();
+  if (n === 5) buildHeatmap();
+  if (n === 6) renderCalc();
+}
+
+buildSexChart();
+buildHeatmap();
+renderCalc();
+animateSlide(0);
+</script>
+
+</body></html>
