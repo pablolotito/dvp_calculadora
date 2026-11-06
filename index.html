@@ -453,6 +453,38 @@ input[type=range] { accent-color: var(--accent); cursor: pointer; }
     </div>
   </div>
 
+
+  <!-- S10: QR -->
+  <div class="slide" id="s10">
+    <div class="eyebrow">Recursos — acceso libre</div>
+    <div class="slide-title">Escaneá y <em>accedé ahora</em></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:20px;">
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+        <div style="background:#fff;padding:14px;border-radius:12px;">
+          <div id="qrcode-slides"></div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;">Filminas interactivas</div>
+          <div style="font-size:.78rem;color:var(--fg2);line-height:1.5;">Calculador DVP por edad,<br>sexo y largo axial</div>
+          <div style="font-size:.68rem;color:rgba(159,180,212,.45);margin-top:4px;">pablolotito.github.io/dvp_calculadora</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+        <div style="background:#fff;padding:14px;border-radius:12px;">
+          <div id="qrcode-app"></div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--acc3);margin-bottom:4px;">Aplicación de registro</div>
+          <div style="font-size:.78rem;color:var(--fg2);line-height:1.5;">Ingreso y análisis de<br>datos de pacientes</div>
+          <div style="font-size:.68rem;color:rgba(159,180,212,.45);margin-top:4px;">dvp-analysis.onrender.com</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div><!-- /slides-area -->
 
 <!-- NAV -->
@@ -466,10 +498,32 @@ input[type=range] { accent-color: var(--accent); cursor: pointer; }
 </div>
 </div><!-- /deck -->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 /* ── Deck controller ─── */
 const slides = Array.from(document.querySelectorAll('.slide'));
 const total  = slides.length;
+// QR code — genera en slide QR cuando se inicializa
+function buildQR() {
+  const el1 = document.getElementById('qrcode-slides');
+  if (el1 && !el1.children.length) {
+    new QRCode(el1, {
+      text: 'https://pablolotito.github.io/dvp_calculadora/',
+      width: 180, height: 180,
+      colorDark: '#000000', colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+  const el2 = document.getElementById('qrcode-app');
+  if (el2 && !el2.children.length) {
+    new QRCode(el2, {
+      text: 'https://dvp-analysis.onrender.com',
+      width: 180, height: 180,
+      colorDark: '#000000', colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+}
 let cur = 0;
 const dotsWrap = document.getElementById('dots');
 const countEl  = document.getElementById('slide-count');
@@ -690,6 +744,7 @@ function animateSlide(n) {
   if (n === 2) buildSexChart();
   if (n === 5) buildHeatmap();
   if (n === 6) renderCalc();
+  if (n === slides.length - 1) buildQR(); // slide QR es el último
 }
 
 buildSexChart();
